@@ -30,7 +30,6 @@
 
           vendorHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
 
-			go = pkgs.go_1_25_6;
           subPackages = [ "." ];
           ldflags = [ "-s" "-w" ];
 
