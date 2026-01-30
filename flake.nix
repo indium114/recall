@@ -11,7 +11,6 @@
       let
         pkgs = import nixpkgs { inherit system; };
       in {
-        # Your devshell stays the same
         devShells.default = pkgs.mkShell {
           name = "recall-devshell";
 
@@ -25,23 +24,23 @@
 
         packages.recall = pkgs.buildGoModule {
           pname = "recall";
-          version = "0.1.0";
+          version = "2026.01.30-a";
 
           src = self;
 
           vendorHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
 
+			go = pkgs.go_1_25_6;
           subPackages = [ "." ];
           ldflags = [ "-s" "-w" ];
 
           meta = with pkgs.lib; {
-            description = "Gamified to-do list in Go";
+            description = "A minimal to-do list program with a few amenities";
             license = licenses.mit;
             platforms = platforms.linux;
           };
         };
 
-        # Optional: expose recall as an app for nix run
         apps.recall = {
           type = "app";
           program = "${self.packages.${system}.recall}/bin/recall";
