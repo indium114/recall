@@ -33,7 +33,7 @@ var addCmd = &cobra.Command{
 		tasks = append(tasks, Task{
 			Name:  name,
 			Prio:  prio,
-			State: false,
+			State: 0,
 			ID:    id,
 		})
 

@@ -15,7 +15,7 @@ var doneCmd = &cobra.Command{
 
 		for i, t := range tasks {
 			if t.ID == id {
-				tasks[i].State = true
+				tasks[i].State = 2
 				_ = saveTasks(tasks)
 
 				reward := t.Prio * 10

@@ -15,7 +15,7 @@ var undoCmd = &cobra.Command{
 
 		for i, t := range tasks {
 			if t.ID == id {
-				tasks[i].State = false
+				tasks[i].State = 0
 				_ = saveTasks(tasks)
 
 				penalty := t.Prio * 10
