@@ -13,7 +13,7 @@ var clearCompletedCmd = &cobra.Command{
 		remaining := []Task{}
 
 		for _, t := range tasks {
-			if !t.State {
+			if t.State < 2 {
 				remaining = append(remaining, t)
 			}
 		}

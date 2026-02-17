@@ -18,13 +18,27 @@ var listCmd = &cobra.Command{
 			return
 		}
 
-		color.White(" Tasks:\n")
+		var pending []Task
+		var busy []Task
+		var done []Task
 
 		for _, t := range tasks {
-			stat := " "
-			if t.State {
-				stat = "󰄲 "
+			switch t.State {
+			case 0:
+				pending = append(pending, t)
+			case 1:
+				busy = append(busy, t)
+			case 2:
+				done = append(done, t)
 			}
+		}
+
+		color.White(" Tasks:\n")
+
+		color.White(" Completed")
+
+		for _, t := range done {
+			stat := "󰄲 "
 
 			line := fmt.Sprintf(
 				"%d %s: %s (%d)\n",
@@ -44,6 +58,55 @@ var listCmd = &cobra.Command{
 				color.White(line)
 			}
 		}
+
+		color.White(" Busy")
+
+		for _, t := range busy {
+			stat := "󰥔 "
+
+			line := fmt.Sprintf(
+				"%d %s: %s (%d)\n",
+				t.ID,
+				stat,
+				t.Name,
+				t.Prio,
+			)
+
+			if t.Prio == 1 {
+				color.Green(line)
+			} else if t.Prio == 2 {
+				color.Yellow(line)
+			} else if t.Prio == 3 {
+				color.Red(line)
+			} else {
+				color.White(line)
+			}
+		}
+
+		color.White(" Pending")
+
+		for _, t := range pending {
+			stat := " "
+
+			line := fmt.Sprintf(
+				"%d %s: %s (%d)\n",
+				t.ID,
+				stat,
+				t.Name,
+				t.Prio,
+			)
+
+			if t.Prio == 1 {
+				color.Green(line)
+			} else if t.Prio == 2 {
+				color.Yellow(line)
+			} else if t.Prio == 3 {
+				color.Red(line)
+			} else {
+				color.White(line)
+			}
+		}
+
 	},
 }
 

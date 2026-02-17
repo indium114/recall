@@ -2,26 +2,23 @@ package cmd
 
 import (
 	"github.com/fatih/color"
+
 	"github.com/spf13/cobra"
 )
 
-var doneCmd = &cobra.Command{
-	Use:   "done <id>",
-	Short: "Complete a task",
-	Args:  cobra.ExactArgs(1),
+var busyCmd = &cobra.Command{
+	Use:   "busy <id>",
+	Short: "Set a task to busy",
 	Run: func(cmd *cobra.Command, args []string) {
 		id := atoi(args[0])
 		tasks := loadTasks()
 
 		for i, t := range tasks {
 			if t.ID == id {
-				tasks[i].State = 2
+				tasks[i].State = 1
 				_ = saveTasks(tasks)
 
-				reward := t.Prio * 10
-				increaseXP(reward)
-
-				color.Green("󱕣 Earned %d XP\n", reward)
+				color.Yellow("󰥔 Set task %s to busy", t.ID)
 				return
 			}
 		}
@@ -31,5 +28,5 @@ var doneCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.AddCommand(doneCmd)
+	rootCmd.AddCommand(busyCmd)
 }

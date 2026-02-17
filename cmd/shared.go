@@ -10,7 +10,7 @@ import (
 type Task struct {
 	Name  string `json:"name"`
 	Prio  int    `json:"prio"`
-	State bool   `json:"state"`
+	State int    `json:"state"`
 	ID    int    `json:"id"`
 }
 
