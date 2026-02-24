@@ -2,6 +2,8 @@
 
 ![recall's terminal output](assets/freeze.png)
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/StikyPiston/recall)
+
 **recall** is a minimal to-do list/reminders tool for the CLI!
 
 ## Installation
