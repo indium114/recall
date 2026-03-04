@@ -18,7 +18,7 @@ var busyCmd = &cobra.Command{
 				tasks[i].State = 1
 				_ = saveTasks(tasks)
 
-				color.Yellow("󰥔 Set task %s to busy", t.ID)
+				color.Yellow("󰥔 Set task %d to busy", t.ID)
 				return
 			}
 		}
