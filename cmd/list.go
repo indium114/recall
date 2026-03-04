@@ -35,7 +35,9 @@ var listCmd = &cobra.Command{
 
 		color.White(" Tasks:\n")
 
-		color.White(" Completed")
+		if len(done) != 0 {
+			color.White(" Completed")
+		}
 
 		for _, t := range done {
 			stat := "󰄲 "
@@ -59,7 +61,9 @@ var listCmd = &cobra.Command{
 			}
 		}
 
-		color.White(" Busy")
+		if len(busy) != 0 {
+			color.White(" Busy")
+		}
 
 		for _, t := range busy {
 			stat := "󰥔 "
@@ -83,7 +87,9 @@ var listCmd = &cobra.Command{
 			}
 		}
 
-		color.White(" Pending")
+		if len(pending) != 0 {
+			color.White(" Pending")
+		}
 
 		for _, t := range pending {
 			stat := " "
