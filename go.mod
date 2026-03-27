@@ -1,4 +1,4 @@
-module github.com/stikypiston/recall
+module github.com/indium114/recall
 
 go 1.25.5
 

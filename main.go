@@ -4,7 +4,7 @@ Copyright © 2026 NAME HERE <EMAIL ADDRESS>
 */
 package main
 
-import "github.com/stikypiston/recall/cmd"
+import "github.com/indium114/recall/cmd"
 
 func main() {
 	cmd.Execute()
