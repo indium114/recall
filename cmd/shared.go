@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"encoding/json"
+	"github.com/fatih/color"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -123,4 +124,6 @@ func applyDailyPenalty() {
 	xp.LastChecked = now
 
 	_ = saveXP(xp)
+
+	color.Red("󰓑 %d tasks pending, penalty of -%d XP applied", pending, penalty)
 }
