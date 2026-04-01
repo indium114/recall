@@ -11,6 +11,7 @@ var rootCmd = &cobra.Command{
 	Short: "A minimal to-do list with a few amenities",
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
 		initStorage()
+		applyDailyPenalty()
 	},
 }
 

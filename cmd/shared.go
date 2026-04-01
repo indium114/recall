@@ -2,9 +2,11 @@ package cmd
 
 import (
 	"encoding/json"
+	"github.com/fatih/color"
 	"os"
 	"path/filepath"
 	"strconv"
+	"time"
 )
 
 type Task struct {
@@ -15,7 +17,8 @@ type Task struct {
 }
 
 type XP struct {
-	XP int `json:"XP"`
+	XP          int   `json:"XP"`
+	LastChecked int64 `json:"last_checked"`
 }
 
 var (
@@ -32,7 +35,7 @@ func ensureFile(path string, content []byte) {
 
 func initStorage() {
 	ensureFile(todoPath, []byte("[]"))
-	ensureFile(xpPath, []byte(`{"XP":0}`))
+	ensureFile(xpPath, []byte(`{"XP":0,"last_checked":0}`))
 }
 
 func loadTasks() []Task {
@@ -82,4 +85,45 @@ func decreaseXP(amount int) {
 func atoi(s string) int {
 	i, _ := strconv.Atoi(s)
 	return i
+}
+
+func applyDailyPenalty() {
+	xp := loadXP()
+
+	now := time.Now().Unix()
+	last := xp.LastChecked
+
+	if last == 0 {
+		xp.LastChecked = now
+		_ = saveXP(xp)
+		return
+	}
+
+	days := int((now - last) / 86400)
+	if days <= 0 {
+		return
+	}
+
+	tasks := loadTasks()
+
+	pending := 0
+	for _, t := range tasks {
+		if t.State == 0 {
+			pending++
+		}
+	}
+
+	if pending == 0 {
+		xp.LastChecked = now
+		_ = saveXP(xp)
+		return
+	}
+
+	penalty := days * pending * 5
+	xp.XP -= penalty
+	xp.LastChecked = now
+
+	_ = saveXP(xp)
+
+	color.Red("󰓑 %d tasks pending, penalty of -%d XP applied", pending, penalty)
 }
