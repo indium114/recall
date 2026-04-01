@@ -21,6 +21,7 @@ var listCmd = &cobra.Command{
 		var pending []Task
 		var busy []Task
 		var done []Task
+		var backBurner []Task
 
 		for _, t := range tasks {
 			switch t.State {
@@ -30,6 +31,8 @@ var listCmd = &cobra.Command{
 				busy = append(busy, t)
 			case 2:
 				done = append(done, t)
+			case 3:
+				backBurner = append(backBurner, t)
 			}
 		}
 
@@ -92,6 +95,32 @@ var listCmd = &cobra.Command{
 		}
 
 		for _, t := range pending {
+			stat := " "
+
+			line := fmt.Sprintf(
+				"%d %s: %s (%d)\n",
+				t.ID,
+				stat,
+				t.Name,
+				t.Prio,
+			)
+
+			if t.Prio == 1 {
+				color.Green(line)
+			} else if t.Prio == 2 {
+				color.Yellow(line)
+			} else if t.Prio == 3 {
+				color.Red(line)
+			} else {
+				color.White(line)
+			}
+		}
+
+		if len(backBurner) != 0 {
+			color.White("󰀼 Back-Burner")
+		}
+
+		for _, t := range backBurner {
 			stat := " "
 
 			line := fmt.Sprintf(
