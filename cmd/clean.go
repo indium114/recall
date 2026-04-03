@@ -6,7 +6,7 @@ import (
 )
 
 var clearCompletedCmd = &cobra.Command{
-	Use:   "clearcompleted",
+	Use:   "clean",
 	Short: "Clear completed tasks",
 	Run: func(cmd *cobra.Command, args []string) {
 		tasks := loadTasks()
