@@ -6,14 +6,14 @@ import (
 )
 
 var clearCompletedCmd = &cobra.Command{
-	Use:   "clearcompleted",
+	Use:   "clean",
 	Short: "Clear completed tasks",
 	Run: func(cmd *cobra.Command, args []string) {
 		tasks := loadTasks()
 		remaining := []Task{}
 
 		for _, t := range tasks {
-			if t.State < 2 {
+			if t.State < 2 || t.State == 3 {
 				remaining = append(remaining, t)
 			}
 		}

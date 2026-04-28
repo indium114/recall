@@ -7,7 +7,7 @@ import (
 
 var undoCmd = &cobra.Command{
 	Use:   "undo <id>",
-	Short: "Undo a task (also works to unmark a task as busy)",
+	Short: "Undo a task (also works to unmark a task as busy or remove it from the back-burner)",
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		id := atoi(args[0])
